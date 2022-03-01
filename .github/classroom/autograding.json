@@ -1,0 +1,84 @@
+{
+  "tests": [
+    {
+      "name": "Compilación",
+      "setup": "",
+      "run": "cd ./problem1 && make",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "1",
+      "setup": "",
+      "run": "cd ./problem1 && bash ./test-main.sh -t 1",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "2",
+      "setup": "",
+      "run": "cd ./problem1 && bash ./test-main.sh -t 2",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "3",
+      "setup": "",
+      "run": "cd ./problem1 && bash ./test-main.sh -t 3",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 20
+    },
+    {
+      "name": "4",
+      "setup": "",
+      "run": "cd ./problem1 && bash ./test-main.sh -t 4",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 3
+    },
+    {
+      "name": "5",
+      "setup": "",
+      "run": "cd ./problem1 && bash ./test-main.sh -t 5",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 3
+    },
+    {
+      "name": "6",
+      "setup": "",
+      "run": "cd ./problem1 && bash ./test-main.sh -t 6",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 3
+    },
+    {
+      "name": "7",
+      "setup": "",
+      "run": "cd ./problem1 && bash ./test-main.sh -t 7",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 3
+    }
+  ]
+}
