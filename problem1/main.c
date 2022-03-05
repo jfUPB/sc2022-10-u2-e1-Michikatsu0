@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 #define MAX 100
 
 #ifdef DOLOG
@@ -40,14 +41,32 @@ void getArray(struct array *parr)
     // codigo para entrar un caracter
     uint value;
     char bufferArray[MAX];
-    
+    char *endptr;
+
+    //ingreso del tamaño del array por fgets  
     printf("Enter the size of the array: ");
-    if (fgets(bufferArray,MAX,stdin) != NULL){
+    if (fgets(bufferArray,MAX,stdin) != NULL){ 
         bufferArray[strlen(bufferArray)-1] == 0;
-        // convertir el dato ingresado a un numero con scanf()
-        scanf(bufferArray, "%d", value);
-        // 
     }
+
+    // convertir el dato ingresado a un numero con strtol() y pasarle el dato del valor al dato de size en la estruc array{}
+    errno = 0;
+    value = strtol(bufferArray, &endptr, 10);
+    if(errno == 0 && *bufferArray != 0 && bufferArray != endptr){ //prueba de errores
+        parr->size = value;
+    }
+    else{
+        exit(EXIT_FAILURE);
+    }
+
+    // asignarle el "size" a la posicion en memoria donde ira el arreglo 
+    parr->pdata = malloc (sizeof(int)*parr->size);
+
+    //convertir los datos del arreglo a numeros
+    for (uint i=0; i<parr->size; i++){
+        
+    }
+    
 }
 
 void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOut)
