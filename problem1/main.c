@@ -49,22 +49,19 @@ void getArray(struct array *parr)
     if (fgets(bufferArray, MAX, stdin) != NULL)
     {
         bufferArray[strlen(bufferArray) - 1] = 0;
-    }
 
-    // convertir el dato ingresado a un numero con strtol() y pasarle el dato del valor al dato de size en la estruc array{}
-    errno = 0;
-    value = strtol(bufferArray, &endptr, 10);
-    if (errno == 0 && *bufferArray != 0 && bufferArray != endptr) // prueba de errores
-    {
-        parr->size = value;
+        // convertir el dato ingresado a un numero con strtol() y pasarle el dato del valor al dato de size en la estruc array{}
+        errno = 0;
+        value = strtol(bufferArray, &endptr, 10);
+        if (errno == 0 && *bufferArray != 0 && bufferArray != endptr) // prueba de errores
+        {
+            parr->size = value;
+            // asignarle el "size" a la posicion en memoria donde ira el arreglo
+            parr->pdata = malloc(sizeof(int) * parr->size);
+        }
+        else
+            exit(EXIT_FAILURE);
     }
-    else
-    {
-        exit(EXIT_FAILURE);
-    }
-
-    // asignarle el "size" a la posicion en memoria donde ira el arreglo
-    parr->pdata = malloc(sizeof(int) * parr->size);
 
     // convertir los datos del arreglo a numeros
     for (uint i = 0; i < parr->size; i++)
@@ -86,8 +83,6 @@ void getArray(struct array *parr)
 
 void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOut)
 {
-
-
 }
 
 void freeMemory(struct array *arr1, struct array *arr2, struct array *arr3)
