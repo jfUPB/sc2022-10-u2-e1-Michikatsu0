@@ -22,7 +22,8 @@ void arrayCommon(struct array *, struct array *, struct array *);
 void printArray(struct array *);
 void freeMemory(struct array *, struct array *, struct array *);
 
-void initArray(struct array *arr){
+void initArray(struct array *arr)
+{
     arr->pdata = NULL;
     arr->size = -1;
 }
@@ -43,35 +44,50 @@ void getArray(struct array *parr)
     char bufferArray[MAX];
     char *endptr;
 
-    //ingreso del tamaño del array por fgets  
+    // ingreso del tamaño del array por fgets
     printf("Enter the size of the array: ");
-    if (fgets(bufferArray,MAX,stdin) != NULL){ 
-        bufferArray[strlen(bufferArray)-1] == 0;
+    if (fgets(bufferArray, MAX, stdin) != NULL)
+    {
+        bufferArray[strlen(bufferArray) - 1] = 0;
     }
 
     // convertir el dato ingresado a un numero con strtol() y pasarle el dato del valor al dato de size en la estruc array{}
     errno = 0;
     value = strtol(bufferArray, &endptr, 10);
-    if(errno == 0 && *bufferArray != 0 && bufferArray != endptr){ //prueba de errores
+    if (errno == 0 && *bufferArray != 0 && bufferArray != endptr) // prueba de errores
+    {
         parr->size = value;
     }
-    else{
+    else
+    {
         exit(EXIT_FAILURE);
     }
 
-    // asignarle el "size" a la posicion en memoria donde ira el arreglo 
-    parr->pdata = malloc (sizeof(int)*parr->size);
+    // asignarle el "size" a la posicion en memoria donde ira el arreglo
+    parr->pdata = malloc(sizeof(int) * parr->size);
 
-    //convertir los datos del arreglo a numeros
-    for (uint i=0; i<parr->size; i++){
-        
+    // convertir los datos del arreglo a numeros
+    for (uint i = 0; i < parr->size; i++)
+    {
+        if (fgets(bufferArray, MAX, stdin) != NULL)
+        {
+            value = strtol(bufferArray, &endptr, 10);
+            if (errno == 0 && *bufferArray != 0 && bufferArray != endptr) // prueba de errores
+            {
+                parr->pdata[i] = value;
+            }
+            else
+            {
+                exit(EXIT_FAILURE);
+            }
+        }
     }
-    
 }
 
 void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOut)
 {
-    
+
+
 }
 
 void freeMemory(struct array *arr1, struct array *arr2, struct array *arr3)
@@ -105,10 +121,9 @@ int main(void)
     struct array *arr1 = malloc(sizeof(struct array) * 1);
     initArray(arr1);
     struct array *arr2 = malloc(sizeof(struct array) * 1);
-    initArray(arr2);    
+    initArray(arr2);
     struct array *arr3 = malloc(sizeof(struct array) * 1);
     initArray(arr3);
-
 
     LOG("Init command loop\n");
 
@@ -153,7 +168,7 @@ int main(void)
         else if (strncmp(commandBuf, "exit", strlen("exit")) == 0)
         {
             LOG("running exit command\n");
-            freeMemory(arr1,arr2,arr3);
+            freeMemory(arr1, arr2, arr3);
             break;
         }
     }
