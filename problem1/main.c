@@ -40,7 +40,7 @@ void printArray(struct array *parr)
 void getArray(struct array *parr)
 {
     // codigo para entrar un caracter
-    uint value;
+    int value;
     char bufferArray[MAX];
     char *endptr;
 
@@ -56,11 +56,11 @@ void getArray(struct array *parr)
         if (errno == 0 && *bufferArray != 0 && bufferArray != endptr) // prueba de errores
         {
             parr->size = value;
+
             // asignarle el "size" a la posicion en memoria donde ira el arreglo
             parr->pdata = malloc(sizeof(int) * parr->size);
         }
-        else
-            exit(EXIT_FAILURE);
+        else exit(EXIT_FAILURE);
     }
 
     // convertir los datos del arreglo a numeros
@@ -73,16 +73,37 @@ void getArray(struct array *parr)
             {
                 parr->pdata[i] = value;
             }
-            else
-            {
-                exit(EXIT_FAILURE);
-            }
+            else exit(EXIT_FAILURE);
         }
     }
 }
 
 void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOut)
 {
+    // necesito una variable para pasar el size al array arrOut
+    // necesito un vector donde guardar los datos que son repetidos para luego pasarlo al array arrOut
+    int sizeOut=0;
+    char pdataOut[MAX];
+
+    // recorrer los arreglos y preguntar si los datos en la posicion i de arr1[i] y arr2[i] son iguales
+    for (uint i = 0; i < arrIn1->size; i++)
+    {
+        for (uint j = 0; j < arrIn2->size; j++)
+        {
+            if (arrIn1->pdata[i] == arrIn2->pdata[j]){
+                //lo cargo a la memoria
+                pdataOut[i] = arrIn1->pdata[i];
+                sizeOut++;
+            }
+        }
+    }
+
+    // asignar las variables al array arrayOut y el espacio en la memoria para almacenar los datos
+    arrOut->size = sizeOut;
+    arrOut->pdata = malloc(sizeof(int)*arrOut->size);
+    for (uint i =0;i<arrOut->size;i++){
+        arrOut->pdata[i] = pdataOut[i];
+    }
 }
 
 void freeMemory(struct array *arr1, struct array *arr2, struct array *arr3)
