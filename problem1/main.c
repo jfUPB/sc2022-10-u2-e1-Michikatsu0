@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#define MAX 100
 
 #ifdef DOLOG
 #define LOG(...) fprintf(log, __VA_ARGS__);
@@ -36,7 +37,17 @@ void printArray(struct array *parr)
 
 void getArray(struct array *parr)
 {
+    // codigo para entrar un caracter
+    uint value;
+    char bufferArray[MAX];
     
+    printf("Enter the size of the array: ");
+    if (fgets(bufferArray,MAX,stdin) != NULL){
+        bufferArray[strlen(bufferArray)-1] == 0;
+        // convertir el dato ingresado a un numero con scanf()
+        scanf(bufferArray, "%d", value);
+        // 
+    }
 }
 
 void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOut)
