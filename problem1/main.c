@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
-#define MAX 100
+#define MAX 100 // valor maximo de caracteres en el buffer
 
 #ifdef DOLOG
 #define LOG(...) fprintf(log, __VA_ARGS__);
@@ -44,9 +44,8 @@ void getArray(struct array *parr)
     char bufferArray[MAX];
     char *endptr;
 
-    // ingreso del tamaño del array por fgets
     printf("Enter the size of the array: ");
-    if (fgets(bufferArray, MAX, stdin) != NULL)
+    if (fgets(bufferArray, MAX, stdin) != NULL) // ingreso del tamaño del array por fgets
     {
         bufferArray[strlen(bufferArray) - 1] = 0;
 
@@ -56,24 +55,22 @@ void getArray(struct array *parr)
         if (errno == 0 && *bufferArray != 0 && bufferArray != endptr) // prueba de errores
         {
             parr->size = value;
-
             // asignarle el "size" a la posicion en memoria donde ira el arreglo
             parr->pdata = malloc(sizeof(int) * parr->size);
         }
-        else exit(EXIT_FAILURE);
+        else
+            exit(EXIT_FAILURE);
     }
 
-    // convertir los datos del arreglo a numeros
     for (uint i = 0; i < parr->size; i++)
     {
         if (fgets(bufferArray, MAX, stdin) != NULL)
         {
-            value = strtol(bufferArray, &endptr, 10);
+            value = strtol(bufferArray, &endptr, 10); // convertir los datos del arreglo a numeros
             if (errno == 0 && *bufferArray != 0 && bufferArray != endptr) // prueba de errores
-            {
                 parr->pdata[i] = value;
-            }
-            else exit(EXIT_FAILURE);
+            else
+                exit(EXIT_FAILURE);
         }
     }
 }
@@ -82,16 +79,20 @@ void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOu
 {
     // necesito una variable para pasar el size al array arrOut
     // necesito un vector donde guardar los datos que son repetidos para luego pasarlo al array arrOut
-    int sizeOut=0;
+    int sizeOut = 0;
     char pdataOut[MAX];
+    // necesito algo para saber, dado el caso en que la variable del array se haya repetido
+    bool state int valueTmp = 0;
 
     // recorrer los arreglos y preguntar si los datos en la posicion i de arr1[i] y arr2[i] son iguales
     for (uint i = 0; i < arrIn1->size; i++)
     {
         for (uint j = 0; j < arrIn2->size; j++)
         {
-            if (arrIn1->pdata[i] == arrIn2->pdata[j]){
-                //lo cargo a la memoria
+            if (arrIn1->pdata[i] == arrIn2->pdata[j])
+            {
+                //
+                // lo cargo a la memoria
                 pdataOut[i] = arrIn1->pdata[i];
                 sizeOut++;
             }
@@ -100,8 +101,9 @@ void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOu
 
     // asignar las variables al array arrayOut y el espacio en la memoria para almacenar los datos
     arrOut->size = sizeOut;
-    arrOut->pdata = malloc(sizeof(int)*arrOut->size);
-    for (uint i =0;i<arrOut->size;i++){
+    arrOut->pdata = malloc(sizeof(int) * arrOut->size);
+    for (uint i = 0; i < arrOut->size; i++)
+    {
         arrOut->pdata[i] = pdataOut[i];
     }
 }
