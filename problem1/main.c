@@ -85,9 +85,7 @@ void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOu
                 for (uint k = 0; k < size_vdataOut; k++) // recorro y verifico en el vdataOut si el numero a evaluar ya esta en el array
                 {
                     if (vdataOut[k] == valueOut)
-                    {
-                        stateRepeated = false;
-                    }
+                        stateRepeated = false;                 
                 }
 
                 if (stateRepeated)
