@@ -96,28 +96,24 @@ void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOu
             if (arrIn1->pdata[i] == arrIn2->pdata[j])
             {
                 valueOut = arrIn1->pdata[i];
-
+                stateRepeated = true;
                 for (uint k = 0; k < size_vdataOut; k++) // recorro y verifico en el vdataOut si el numero a evaluar ya esta en el array
                 {
                     if (vdataOut[k] == valueOut)
                     {
                         stateRepeated = true;
+                        k = size_vdataOut;
                     }
                 }
 
                 if (stateRepeated)
                 {
-                    //no hago nada pues esta repetido y pongo el repetido en false para el siguiente dato
-                    stateRepeated = false;
-                }
-                else
-                {
-                    vdataOut[i] = valueOut;
+                    vdataOut[size_vdataOut] = valueOut;
                     size_vdataOut++;
                 }
             }
         }
-        
+        stateRepeated = false;
     }
 
     // asignar las variables al array arrayOut y el espacio en la memoria para almacenar los datos
