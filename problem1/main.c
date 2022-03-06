@@ -48,13 +48,13 @@ void getArray(struct array *parr)
     {
         bufferArray[strlen(bufferArray) - 1] = 0;
 
-        // convertir el dato ingresado a un numero con strtol() y pasarle el dato del valor al dato de size en la estruc array
+        // convertir el dato ingresado a un numero con sscanf() y pasarle el dato del valor al dato de size en la estruc array
         sscanf(bufferArray, "%d", &parr->size);
         // asignarle el "size" a la posicion en memoria donde ira el arreglo
         parr->pdata = malloc(sizeof(int) * parr->size);
     }
 
-    // Agregar datos al array
+    // Agregar datos al array con fgets y convertirlos a numero con sscanf
     for (uint i = 0; i < parr->size; i++)
     {
         if (fgets(bufferArray, MAX, stdin) != NULL)
@@ -107,7 +107,7 @@ void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOu
     arrOut->pdata = malloc(sizeof(int) * arrOut->size);
     for (uint i = 0; i < arrOut->size; i++)
     {
-        arrOut->pdata[i] = vdataOut[i];
+        *(arrOut->pdata+i) = vdataOut[i];
     }
 }
 
