@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <stdbool.h>
+
 #define MAX 100 // valor maximo de caracteres en el buffer
 
 #ifdef DOLOG
@@ -62,11 +64,12 @@ void getArray(struct array *parr)
             exit(EXIT_FAILURE);
     }
 
+    // Agregar datos al array
     for (uint i = 0; i < parr->size; i++)
     {
         if (fgets(bufferArray, MAX, stdin) != NULL)
         {
-            value = strtol(bufferArray, &endptr, 10); // convertir los datos del arreglo a numeros
+            value = strtol(bufferArray, &endptr, 10);                     // convertir los datos del arreglo a numeros
             if (errno == 0 && *bufferArray != 0 && bufferArray != endptr) // prueba de errores
                 parr->pdata[i] = value;
             else
@@ -78,11 +81,12 @@ void getArray(struct array *parr)
 void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOut)
 {
     // necesito una variable para pasar el size al array arrOut
-    // necesito un vector donde guardar los datos que son repetidos para luego pasarlo al array arrOut
-    int sizeOut = 0;
-    char pdataOut[MAX];
+    // necesito un array donde guardar los datos que son repetidos para luego pasarlo al array arrOut
     // necesito algo para saber, dado el caso en que la variable del array se haya repetido
-    bool state int valueTmp = 0;
+    int size_vdataOut = 0;
+    char vdataOut[MAX];
+    int valueOut = 0;
+    bool stateRepeated = false;
 
     // recorrer los arreglos y preguntar si los datos en la posicion i de arr1[i] y arr2[i] son iguales
     for (uint i = 0; i < arrIn1->size; i++)
@@ -91,20 +95,37 @@ void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOu
         {
             if (arrIn1->pdata[i] == arrIn2->pdata[j])
             {
-                //
-                // lo cargo a la memoria
-                pdataOut[i] = arrIn1->pdata[i];
-                sizeOut++;
+                valueOut = arrIn1->pdata[i];
+
+                for (uint k = 0; k < size_vdataOut; k++) // recorro y verifico en el vdataOut si el numero a evaluar ya esta en el array
+                {
+                    if (vdataOut[k] == valueOut)
+                    {
+                        stateRepeated = true;
+                    }
+                }
+
+                if (stateRepeated)
+                {
+                    //no hago nada pues esta repetido y pongo el repetido en false para el siguiente dato
+                    stateRepeated = false;
+                }
+                else
+                {
+                    vdataOut[i] = valueOut;
+                    size_vdataOut++;
+                }
             }
         }
+        
     }
 
     // asignar las variables al array arrayOut y el espacio en la memoria para almacenar los datos
-    arrOut->size = sizeOut;
+    arrOut->size = size_vdataOut;
     arrOut->pdata = malloc(sizeof(int) * arrOut->size);
     for (uint i = 0; i < arrOut->size; i++)
     {
-        arrOut->pdata[i] = pdataOut[i];
+        arrOut->pdata[i] = vdataOut[i];
     }
 }
 
