@@ -49,7 +49,7 @@ void getArray(struct array *parr)
         bufferArray[strlen(bufferArray) - 1] = 0;
 
         // convertir el dato ingresado a un numero con strtol() y pasarle el dato del valor al dato de size en la estruc array
-        sscanf(bufferArray, "%d", parr->size);
+        sscanf(bufferArray, "%d", &parr->size);
         // asignarle el "size" a la posicion en memoria donde ira el arreglo
         parr->pdata = malloc(sizeof(int) * parr->size);
     }
