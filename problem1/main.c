@@ -42,26 +42,16 @@ void printArray(struct array *parr)
 void getArray(struct array *parr)
 {
     // codigo para entrar un caracter
-    int value;
     char bufferArray[MAX];
-    char *endptr;
 
-    printf("Enter the size of the array: ");
     if (fgets(bufferArray, MAX, stdin) != NULL) // ingreso del tamaño del array por fgets
     {
         bufferArray[strlen(bufferArray) - 1] = 0;
 
-        // convertir el dato ingresado a un numero con strtol() y pasarle el dato del valor al dato de size en la estruc array{}
-        errno = 0;
-        value = strtol(bufferArray, &endptr, 10);
-        if (errno == 0 && *bufferArray != 0 && bufferArray != endptr) // prueba de errores
-        {
-            parr->size = value;
-            // asignarle el "size" a la posicion en memoria donde ira el arreglo
-            parr->pdata = malloc(sizeof(int) * parr->size);
-        }
-        else
-            exit(EXIT_FAILURE);
+        // convertir el dato ingresado a un numero con strtol() y pasarle el dato del valor al dato de size en la estruc array
+        sscanf(bufferArray, "%d", parr->size);
+        // asignarle el "size" a la posicion en memoria donde ira el arreglo
+        parr->pdata = malloc(sizeof(int) * parr->size);
     }
 
     // Agregar datos al array
@@ -69,11 +59,7 @@ void getArray(struct array *parr)
     {
         if (fgets(bufferArray, MAX, stdin) != NULL)
         {
-            value = strtol(bufferArray, &endptr, 10);                     // convertir los datos del arreglo a numeros
-            if (errno == 0 && *bufferArray != 0 && bufferArray != endptr) // prueba de errores
-                parr->pdata[i] = value;
-            else
-                exit(EXIT_FAILURE);
+            sscanf(bufferArray, "%d", parr->pdata + i);
         }
     }
 }
