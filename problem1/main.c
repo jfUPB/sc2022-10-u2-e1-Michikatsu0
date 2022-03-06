@@ -71,7 +71,7 @@ void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOu
     int size_vdataOut = 0;
     char vdataOut[MAX];
     int valueOut = 0;
-    static bool stateRepeated = false;
+    bool stateRepeated = false;
 
     // recorrer los arreglos y preguntar si los datos en la posicion i de arr1[i] y arr2[i] son iguales
     for (uint i = 0; i < arrIn1->size; i++)
